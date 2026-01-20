@@ -4,5 +4,6 @@ body {
 .map {
     height: 400px;
     width: 400px;
-    background-color: #000000;
+     background-color: #f0f0f0; 
+    border: 2px solid #ccc;   
 }
