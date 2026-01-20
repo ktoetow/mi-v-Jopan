@@ -2,8 +2,17 @@ body {
     background-color: #d8d0c9; 
 }
 .map {
-    height: 400px;
-    width: 400px;
+    height: 300px;
+    width: 300px;
      background-color: #f0f0f0; 
     border: 2px solid #ccc;   
+}
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    .partner-card, .add-card {
+        width: 100%;
+        max-width: 400px;
+    }
 }

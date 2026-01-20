@@ -16,4 +16,3 @@ async def home(request: Request):
 @app.get("/api/health")
 async def health_check():
     return {"status": "ok", "message": "Все работает"}
-
