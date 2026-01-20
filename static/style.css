@@ -1,1 +1,8 @@
-body { background-color: #ebd2ad; }
+body { 
+    background-color: #d8d0c9; 
+}
+.map {
+    height: 400px;
+    width: 400px;
+    background-color: #000000;
+}
