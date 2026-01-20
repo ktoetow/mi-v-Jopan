@@ -1,6 +1,15 @@
 body { 
     background-color: #d8d0c9; 
 }
+h1 {
+    background: linear-gradient(135deg, #fb7e6e, #a777e3);
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    animation: fadeInUp 1s ease-out;
+}
 .map {
     height: 300px;
     width: 300px;
@@ -15,4 +24,4 @@ body {
         width: 100%;
         max-width: 400px;
     }
-}
+}   
