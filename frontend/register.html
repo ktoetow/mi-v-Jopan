@@ -1,4 +1,3 @@
-<!-- frontend/register.html -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -6,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Регистрация — TutorBook</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="container">
@@ -14,18 +13,18 @@
     
     <form id="registerForm">
       <div class="form-group">
-        <label for="name">Имя</label>
-        <input type="text" id="name" class="form-control" placeholder="Ваше имя" required>
+        <label for="name">Имя и фамилия</label>
+        <input type="text" id="name" class="form-control" placeholder="Иван Иванов" required>
       </div>
 
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" class="form-control" placeholder="example@mail.com" required>
+        <input type="email" id="email" class="form-control" placeholder="ivan@example.com" required>
       </div>
 
       <div class="form-group">
         <label for="password">Пароль</label>
-        <input type="password" id="password" class="form-control" placeholder="Не менее 6 символов" required>
+        <input type="password" id="password" class="form-control" placeholder="Не менее 8 символов" required>
       </div>
 
       <div class="form-group">
@@ -41,7 +40,7 @@
       <button type="submit" class="btn btn-block">Зарегистрироваться</button>
     </form>
 
-    <p style="text-align: center; margin-top: 1.5rem;">
+    <p style="text-align: center; margin-top: 2rem;">
       Уже есть аккаунт? <a href="login.html" class="link">Войти</a>
     </p>
   </div>
@@ -50,7 +49,7 @@
     document.getElementById('registerForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const name = document.getElementById('name').value;
-      alert(`✅ Добро пожаловать, ${name}!\nВы успешно зарегистрированы как ${document.getElementById('role').value}.`);
+      alert(`✅ Добро пожаловать, ${name}!\nВы успешно зарегистрированы.`);
       window.location.href = 'index.html';
     });
   </script>
