@@ -8,6 +8,7 @@
     <div class="container">
         <div class="auth-card">
             <h2>Создать аккаунт</h2>
+            <p class="subtitle">Зарегистрируйтесь, чтобы записываться к репетиторам.</p>
             <form method="post" action="/register">
                 <div class="form-group">
                     <label for="full_name">ФИО</label>
@@ -21,14 +22,7 @@
                     <label for="password">Пароль (мин. 6 символов)</label>
                     <input type="password" id="password" name="password" minlength="6" required>
                 </div>
-                <div class="form-group">
-                    <label for="role">Я хочу быть:</label>
-                    <select id="role" name="role" required>
-                        <option value="student">Учеником</option>
-                        <option value="tutor">Репетитором</option>
-                        <option value="admin">Администратором</option>
-                    </select>
-                </div>
+                <input type="hidden" name="role" value="student">
                 <button type="submit" class="btn btn-primary full-width">Зарегистрироваться</button>
             </form>
             <p class="auth-footer">
