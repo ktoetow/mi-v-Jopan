@@ -1,0 +1,47 @@
+<!-- app/templates/dashboard/tutor.html -->
+{% extends "base.html" %}
+
+{% block title %}Личный кабинет — Репетитор{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+    <div class="container">
+        <h1>Привет, {{ user.full_name }}!</h1>
+        <p class="role-tag">Вы вошли как <strong>репетитор</strong>.</p>
+
+        <div class="dashboard-actions">
+            <a href="#" class="btn btn-primary">Добавить слот</a>
+        </div>
+
+        <h2>Мои занятия</h2>
+        {% if slots %}
+            <div class="slots-table">
+                <div class="table-header">
+                    <div>Время</div>
+                    <div>Предмет</div>
+                    <div>Ученик</div>
+                    <div>Статус</div>
+                    <div>Действие</div>
+                </div>
+                {% for s in slots %}
+                <div class="table-row">
+                    <div>{{ s.start_time }}</div>
+                    <div>{{ s.subject }}</div>
+                    <div>{{ s.student or '—' }}</div>
+                    <div><span class="status status-{{ s.status }}">{{ s.status }}</span></div>
+                    <div>
+                        {% if s.status == "pending" %}
+                        <form method="post" action="/api/v1/bookings/{{ s.booking_id }}/confirm" style="display:inline;">
+                            <button type="submit" class="btn btn-small">Подтвердить</button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty-state">Нет запланированных занятий.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
