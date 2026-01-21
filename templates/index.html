@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TutorBook</title>
-    <link rel="stylesheet" href="/static/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TutorBook — Запись к репетиторам</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>TutorBook</h1>
-    <p>Сайт для репетиторов и учеников</p>
-    <p>С нами вы сдатите на отлично</p>
-    <p><a href="/docs">Документация API</a></p>
-   <div id="maps" class="map"></div> 
-   <script src="https://api-maps.yandex.ru/2.1/?apikey=fc1f87bd-317b-4df8-9a57-2bf416b5d8a6&lang=ru_RU"></script>
-   <script src="/static/js/map.js"></script>
+  <div class="container">
+    <h1>Добро пожаловать в TutorBook</h1>
+    <p style="text-align: center; font-size: 1.2rem; margin-bottom: 2.5rem;">
+      Платформа для записи к лучшим репетиторам России
+    </p>
+    
+    <div style="display: flex; flex-direction: column; gap: 1.25rem; max-width: 320px; margin: 0 auto;">
+      <a href="student.html" class="btn">Я ученик</a>
+      <a href="tutor.html" class="btn">Я репетитор</a>
+      <a href="admin.html" class="btn">Администратор</a>
+    </div>
+
+    <div style="text-align: center; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid #e2e8f0;">
+      <p>Уже есть аккаунт? <a href="login.html" class="link">Войти</a></p>
+      <p>Нет аккаунта? <a href="register.html" class="link">Зарегистрироваться</a></p>
+    </div>
+  </div>
 </body>
 </html>
