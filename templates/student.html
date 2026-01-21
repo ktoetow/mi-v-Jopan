@@ -1,0 +1,35 @@
+<!-- app/templates/dashboard/student.html -->
+{% extends "base.html" %}
+
+{% block title %}Личный кабинет — Ученик{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+    <div class="container">
+        <h1>Привет, {{ user.full_name }}!</h1>
+        <p class="role-tag">Вы вошли как <strong>ученик</strong>.</p>
+
+        <div class="dashboard-actions">
+            <a href="#" class="btn btn-primary">Найти репетитора</a>
+        </div>
+
+        <h2>Мои записи</h2>
+        {% if bookings %}
+            <div class="bookings-list">
+                {% for b in bookings %}
+                <div class="booking-card">
+                    <div class="booking-header">
+                        <h3>{{ b.tutor_name }}</h3>
+                        <span class="subject-tag">{{ b.subject }}</span>
+                    </div>
+                    <p class="booking-time">📅 {{ b.slot_time }}</p>
+                    <span class="status status-{{ b.status }}">{{ b.status|capitalize }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty-state">У вас пока нет записей. Начните с поиска репетитора!</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
