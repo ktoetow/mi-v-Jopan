@@ -69,3 +69,7 @@ async def register_user(
         raise HTTPException(status_code=400, detail="Пользователь с таким email уже существует")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Ошибка базы данных: {str(e)}")
+    
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
