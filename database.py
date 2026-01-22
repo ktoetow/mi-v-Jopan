@@ -1,21 +1,28 @@
-from sqlalchemy.ext.asyncio import create_async_engine, close_all_sessions, AsyncSession
+# database.py
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.pool import NullPool
+import os
+from dotenv import load_dotenv
 
-DATABASE_URL = "postgresql+asyncpg://postgres:ktoeto1243@localhost:5432/tutorbook"
+load_dotenv()
 
-engine = create_async_engine(
-    DATABASE_URL,
-    echo=True,
-    poolclass=NullPool
-)
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST = os.getenv("DB_HOST")
+DB_PORT = os.getenv("DB_PORT")
+DB_NAME = os.getenv("DB_NAME")
 
-AsyncSessionLocal = sessionmaker(
-    bind=engine,
-    class_=AsyncSession,
-    expire_on_commit=False
-)
+missing = []
+for var in ["DB_USER", "DB_PASSWORD", "DB_HOST", "DB_PORT", "DB_NAME"]:
+    if not locals()[var]:
+        missing.append(var)
 
-async def get_db():
-    async with AsyncSessionLocal() as session:
-        yield session
+if missing:
+    raise ValueError(f"Отсутствуют обязательные переменные в .env: {', '.join(missing)}")
+
+DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
