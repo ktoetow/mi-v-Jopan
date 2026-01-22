@@ -3,18 +3,20 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import JSONResponse
 from passlib.context import CryptContext
-import asyncpg
+from contextlib import asynccontextmanager
+from database import engine, get_db  
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-DB_URL = "postgresql://postgres:ktoeto1243@localhost:5432/tutorbook"
-db_pool = None
-
+@asynccontextmanager
 async def lifespan(app: FastAPI):
-    global db_pool
-    db_pool = await asyncpg.create_pool(DB_URL)
+    
+    from models import Base
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
     yield
-    await db_pool.close()
+   
+    await engine.dispose()
 
 app = FastAPI(
     title="TutorBook",
@@ -38,8 +40,8 @@ async def home(request: Request):
 @app.get("/api/health")
 async def health_check():
     try:
-        async with db_pool.acquire() as conn:
-            await conn.execute("SELECT 1")
+        async with get_db() as session:  
+            await session.execute("SELECT 1")
         return {"status": "ok", "message": "Подключение к PostgreSQL работает"}
     except Exception as e:
         return {"status": "error", "message": f"Ошибка: {str(e)}"}
@@ -53,23 +55,26 @@ async def register_user(
     hashed_pw = hash_password(password)
 
     try:
-        async with db_pool.acquire() as conn:
-            await conn.execute(
+        async with get_db() as session:  
+            await session.execute(
                 """
                 INSERT INTO users (full_name, email, password_hash)
-                VALUES ($1, $2, $3)
+                VALUES (:full_name, :email, :password_hash)
                 """,
-                full_name, email, hashed_pw
+                {
+                    "full_name": full_name,
+                    "email": email,
+                    "password_hash": hashed_pw
+                }
             )
+            await session.commit()  
         return JSONResponse(
             content={"status": "success", "message": "Пользователь успешно зарегистрирован"},
             status_code=201
         )
-    except asyncpg.exceptions.UniqueViolationError:
-        raise HTTPException(status_code=400, detail="Пользователь с таким email уже существует")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Ошибка базы данных: {str(e)}")
-    
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
