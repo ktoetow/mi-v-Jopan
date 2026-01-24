@@ -1,0 +1,40 @@
+<!-- app/templates/base.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}TutorBook{% endblock %}</title>
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">
+                <span>TutorBook</span>
+            </div>
+            <nav class="nav-links">
+                {% if request.session.get('user') %}
+                    <span class="user-greeting">Привет, {{ request.session.user.full_name }}!</span>
+                    <a href="/dashboard" class="btn btn-outline">Кабинет</a>
+                    <a href="/logout" class="btn btn-text">Выйти</a>
+                {% else %}
+                    <a href="/login" class="btn btn-text">Войти</a>
+                    <a href="/register" class="btn btn-primary">Регистрация</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2026 TutorBook. Платформа для записи к репетиторам.</p>
+            <p>Создано с заботой об образовании.</p>
+        </div>
+    </footer>
+</body>
+</html>
