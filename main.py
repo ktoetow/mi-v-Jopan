@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from database import engine, SessionLocal, Base
-from models import User  
+from models import User
 from schemas import UserCreate
 
 Base.metadata.create_all(bind=engine)
@@ -17,6 +17,7 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(title="TutorBook")
 templates = Jinja2Templates(directory="templates")
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 
 def get_db():
     db = SessionLocal()
@@ -30,6 +31,7 @@ def get_db():
 async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+
 @app.get("/api/health")
 async def health_check():
     return {
@@ -41,7 +43,6 @@ async def health_check():
 
 @app.post("/api/register")
 async def register_user(user: UserCreate, db: Session = Depends(get_db)):
-    
     existing_user = db.query(User).filter(User.email == user.email).first()
     if existing_user:
         raise HTTPException(status_code=400, detail="Email already registered")
@@ -58,7 +59,3 @@ async def register_user(user: UserCreate, db: Session = Depends(get_db)):
     db.refresh(db_user)
 
     return {"message": "User registered successfully", "user_id": db_user.id}
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
