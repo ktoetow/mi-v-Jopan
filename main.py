@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
+from fastapi.staticfiles import StaticFiles
 import os
 from dotenv import load_dotenv
 
@@ -17,6 +18,7 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(title="TutorBook")
 templates = Jinja2Templates(directory="templates")
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 def get_db():
@@ -59,3 +61,8 @@ async def register_user(user: UserCreate, db: Session = Depends(get_db)):
     db.refresh(db_user)
 
     return {"message": "User registered successfully", "user_id": db_user.id}
+
+if os.path.exists("static"):
+    app.mount("/static", StaticFiles(directory="static"), name="static")
+else:
+    print("Папка 'static' не найдена. Статические файлы (CSS, JS) не будут доступны.")
