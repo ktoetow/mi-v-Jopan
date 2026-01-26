@@ -42,11 +42,6 @@ def get_db():
         db.close()
 
 
-@app.get("/", response_class=HTMLResponse)
-async def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
-
-
 @app.get("/api/health")
 async def health_check():
     return {
@@ -55,6 +50,9 @@ async def health_check():
         "message": "TutorBook backend is running!"
     }
 
+@app.get("/", response_class=HTMLResponse)
+async def read_root(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 @app.post("/api/register")
 async def register_user(user: UserCreate, db: Session = Depends(get_db)):
