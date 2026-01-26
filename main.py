@@ -72,3 +72,7 @@ async def register_user(user: UserCreate, db: Session = Depends(get_db)):
     db.refresh(db_user)
 
     return {"message": "User registered successfully", "user_id": db_user.id}
+
+@app.get("/register", response_class=HTMLResponse)
+async def register_page(request: Request):
+    return templates.TemplateResponse("register.html", {"request": request})
