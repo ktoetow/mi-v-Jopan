@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Найти репетитора — TutorBook{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Наши репетиторы</h1>
+        <div class="filters">
+            <select><option>Все предметы</option><option>Математика</option><option>Физика</option></select>
+            <select><option>Все классы</option><option>7 класс</option><option>8 класс</option></select>
+        </div>
+    </div>
+</section>
+
+<section class="tutors-list-section">
+    <div class="container">
+        <div class="tutor-card">
+            <div class="tutor-info">
+                <h3>Анна Петрова</h3>
+                <p class="tutor-subject">Математика, 5–9 классы</p>
+                <p class="tutor-bio">Стаж 8 лет, подготовка к ОГЭ</p>
+            </div>
+            <div class="tutor-price">от 800 ₽/час</div>
+            <a href="/tutor/1" class="btn btn-outline">Подробнее</a>
+        </div>
+        <div class="tutor-card">
+            <div class="tutor-info">
+                <h3>Иван Сидоров</h3>
+                <p class="tutor-subject">Физика, 7–11 классы</p>
+                <p class="tutor-bio">Кандидат наук, опыт 10 лет</p>
+            </div>
+            <div class="tutor-price">от 1000 ₽/час</div>
+            <a href="/tutor/2" class="btn btn-outline">Подробнее</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
