@@ -10,9 +10,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-print("DATABASE_URL:", os.getenv("DATABASE_URL"))
-print("SECRET_KEY:", os.getenv("SECRET_KEY", "using default"))
-
 from database import engine, SessionLocal, Base
 from models import User
 from schemas import UserCreate
@@ -80,3 +77,7 @@ async def register_page(request: Request):
 @app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
+
+@app.get("/base", response_class=HTMLResponse)
+async def index_page(request: Request):
+    return templates.TemplateResponse("base.html", {"request": request})
