@@ -1,4 +1,3 @@
-<!-- app/templates/base.html -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -6,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}TutorBook{% endblock %}</title>
     <link rel="stylesheet" href="/static/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="site-header">
@@ -14,6 +14,13 @@
                 <span>TutorBook</span>
             </div>
             <nav class="nav-links">
+                <a href="/">Главная</a>
+                <a href="/how-it-works">Как это работает</a>
+                <a href="/subjects">Предметы</a>
+                <a href="/tutors">Репетиторы</a>
+                <a href="/pricing">Цены</a>
+                <a href="/reviews">Отзывы</a>
+                <a href="/blog">Блог</a>
                 {% if request.session.get('user') %}
                     <span class="user-greeting">Привет, {{ request.session.user.full_name }}!</span>
                     <a href="/dashboard" class="btn btn-outline">Кабинет</a>
@@ -33,7 +40,12 @@
     <footer class="site-footer">
         <div class="container">
             <p>&copy; 2026 TutorBook. Платформа для записи к репетиторам.</p>
-            <p>Создано с заботой об образовании.</p>
+            <p>
+                <a href="/about">О нас</a> • 
+                <a href="/for-tutors">Репетиторам</a> • 
+                <a href="/contact">Контакты</a> • 
+                <a href="/support">Поддержка</a>
+            </p>
         </div>
     </footer>
 </body>
