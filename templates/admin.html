@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Панель администратора{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+    <div class="container">
+        <h1>Администрирование</h1>
+        <p class="role-tag">Вы вошли как <strong>администратор</strong>.</p>
+
+        <div class="admin-grid">
+            <a href="#" class="admin-card">
+                <h3>➕ Добавить предмет</h3>
+            </a>
+            <a href="#" class="admin-card">
+                <h3>👨‍🏫 Создать аккаунт репетитора</h3>
+            </a>
+            <a href="#" class="admin-card">
+                <h3>💰 Установить цены</h3>
+            </a>
+        </div>
+
+        <h2>Активные репетиторы</h2>
+        {% if tutors %}
+            <ul class="tutors-list">
+                {% for t in tutors %}
+                <li>{{ t.full_name }} — {{ t.subjects|join(', ') }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Нет зарегистрированных репетиторов.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
