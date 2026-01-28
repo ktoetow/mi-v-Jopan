@@ -15,12 +15,10 @@
             </div>
             <nav class="nav-links">
                 <a href="/">Главная</a>
-                <a href="/how-it-works">Как это работает</a>
                 <a href="/subjects">Предметы</a>
                 <a href="/tutors">Репетиторы</a>
                 <a href="/pricing">Цены</a>
-                <a href="/reviews">Отзывы</a>
-                <a href="/blog">Блог</a>
+                <a href="/about">О нас</a>
                 {% if request.session.get('user') %}
                     <span class="user-greeting">Привет, {{ request.session.user.full_name }}!</span>
                     <a href="/dashboard" class="btn btn-outline">Кабинет</a>
@@ -40,12 +38,7 @@
     <footer class="site-footer">
         <div class="container">
             <p>&copy; 2026 TutorBook. Платформа для записи к репетиторам.</p>
-            <p>
-                <a href="/about">О нас</a> • 
-                <a href="/for-tutors">Репетиторам</a> • 
-                <a href="/contact">Контакты</a> • 
-                <a href="/support">Поддержка</a>
-            </p>
+            <p><a href="/support">Поддержка</a> • <a href="/profile">Профиль</a></p>
         </div>
     </footer>
 </body>
