@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Мой профиль — TutorBook{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Мой профиль</h1>
+    </div>
+</section>
+
+<section class="profile-section">
+    <div class="container">
+        <div class="profile-card">
+            <h2>Личные данные</h2>
+            <form>
+                <div class="form-group">
+                    <label>ФИО</label>
+                    <input type="text" value="{{ user.full_name }}" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" value="{{ user.email }}" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Роль</label>
+                    <input type="text" value="{{ user.role|capitalize }}" disabled>
+                </div>
+                <a href="#" class="btn btn-outline">Изменить пароль</a>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
