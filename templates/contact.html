@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Контакты — TutorBook{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Свяжитесь с нами</h1>
+    </div>
+</section>
+
+<section class="contact-section">
+    <div class="container">
+        <div class="contact-info">
+            <h2>Адрес и телефон</h2>
+            <p>📧 support@tutorbook.ru</p>
+            <p>📞 +7 (999) 123-45-67</p>
+            <p>🕒 Режим работы: пн–пт, 9:00–18:00 (МСК)</p>
+        </div>
+
+        <div class="contact-form">
+            <h2>Напишите нам</h2>
+            <form>
+                <div class="form-group">
+                    <input type="text" placeholder="Ваше имя" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Сообщение" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

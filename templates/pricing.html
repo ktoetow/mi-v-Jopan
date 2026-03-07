@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Цены — TutorBook{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Стоимость занятий</h1>
+        <p class="subtitle">Цены зависят от предмета и уровня сложности</p>
+    </div>
+</section>
+
+<section class="pricing-table">
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Предмет</th>
+                    <th>5–7 класс</th>
+                    <th>8–9 класс</th>
+                    <th>10–11 класс</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Математика</td><td>700 ₽</td><td>850 ₽</td><td>1000 ₽</td></tr>
+                <tr><td>Физика</td><td>750 ₽</td><td>900 ₽</td><td>1100 ₽</td></tr>
+                <tr><td>Информатика</td><td>800 ₽</td><td>950 ₽</td><td>1200 ₽</td></tr>
+                <tr><td>Русский язык</td><td>700 ₽</td><td>850 ₽</td><td>1000 ₽</td></tr>
+                <tr><td>Английский</td><td>750 ₽</td><td>900 ₽</td><td>1100 ₽</td></tr>
+                <tr><td>Химия</td><td>750 ₽</td><td>900 ₽</td><td>1100 ₽</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

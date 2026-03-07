@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}{{ tutor.full_name }} — TutorBook{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="tutor-profile">
+        <div class="tutor-header">
+            <h1>{{ tutor.full_name }}</h1>
+            <p class="tutor-subject">{{ tutor.subjects|join(', ') }}</p>
+        </div>
+
+        <div class="tutor-body">
+            <div class="tutor-about">
+                <h3>Обо мне</h3>
+                <p>{{ tutor.bio or 'Информация скоро появится.' }}</p>
+                <p><strong>Цена:</strong> {{ tutor.price }} ₽/час</p>
+                <p><strong>Стаж:</strong> {{ tutor.experience }} лет</p>
+            </div>
+
+            <div class="tutor-schedule">
+                <h3>Ближайшие слоты</h3>
+                <div class="slots">
+                    <div class="slot available">26 янв, 15:00</div>
+                    <div class="slot available">26 янв, 17:00</div>
+                    <div class="slot booked">27 янв, 14:00</div>
+                </div>
+                {% if user and user.role == "student" %}
+                <button class="btn btn-primary">Записаться</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

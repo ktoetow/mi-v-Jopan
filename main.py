@@ -51,6 +51,14 @@ async def health_check():
 async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+@app.get("/register", response_class=HTMLResponse)
+async def register_page(request: Request):
+    return templates.TemplateResponse("register.html", {"request": request})
+
+@app.get("/login", response_class=HTMLResponse)
+async def login_page(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
+
 @app.post("/api/register")
 async def register_user(user: UserCreate, db: Session = Depends(get_db)):
     existing_user = db.query(User).filter(User.email == user.email).first()
@@ -70,14 +78,54 @@ async def register_user(user: UserCreate, db: Session = Depends(get_db)):
 
     return {"message": "User registered successfully", "user_id": db_user.id}
 
-@app.get("/register", response_class=HTMLResponse)
-async def register_page(request: Request):
-    return templates.TemplateResponse("register.html", {"request": request})
-
-@app.get("/login", response_class=HTMLResponse)
-async def login_page(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
+@app.get("/about", response_class=HTMLResponse)
+async def about_page(request: Request):
+    return templates.TemplateResponse("about.html", {"request": request})
 
 @app.get("/base", response_class=HTMLResponse)
-async def index_page(request: Request):
+async def base_page(request: Request):
     return templates.TemplateResponse("base.html", {"request": request})
+
+@app.get("/blog", response_class=HTMLResponse)
+async def blog_page(request: Request):
+    return templates.TemplateResponse("blog.html", {"request": request})
+
+@app.get("/contact", response_class=HTMLResponse)
+async def contact_page(request: Request):
+    return templates.TemplateResponse("contact.html", {"request": request})
+
+@app.get("/for-tutors", response_class=HTMLResponse)
+async def for_tutors_page(request: Request):
+    return templates.TemplateResponse("for-tutors.html", {"request": request})
+
+@app.get("/how-it-works", response_class=HTMLResponse)
+async def how_it_works_page(request: Request):
+    return templates.TemplateResponse("how-it-works.html", {"request": request})
+
+@app.get("/pricing", response_class=HTMLResponse)
+async def pricing_page(request: Request):
+    return templates.TemplateResponse("pricing.html", {"request": request})
+
+@app.get("/profile", response_class=HTMLResponse)
+async def profile_page(request: Request):
+    return templates.TemplateResponse("profile.html", {"request": request})
+
+@app.get("/reviews", response_class=HTMLResponse)
+async def reviews_page(request: Request):
+    return templates.TemplateResponse("reviews.html", {"request": request})
+
+@app.get("/subjects", response_class=HTMLResponse)
+async def subjects_page(request: Request):
+    return templates.TemplateResponse("subjects.html", {"request": request})
+
+@app.get("/support", response_class=HTMLResponse)
+async def support_page(request: Request):
+    return templates.TemplateResponse("support.html", {"request": request})
+
+@app.get("/tutor-detail/{tutor_id}", response_class=HTMLResponse)
+async def tutor_detail_page(request: Request, tutor_id: int):
+    return templates.TemplateResponse("tutor_detail.html", {"request": request, "tutor_id": tutor_id})
+
+@app.get("/tutors", response_class=HTMLResponse)
+async def tutors_page(request: Request):
+    return templates.TemplateResponse("tutors.html", {"request": request})
