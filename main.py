@@ -107,8 +107,23 @@ async def pricing_page(request: Request):
     return templates.TemplateResponse("pricing.html", {"request": request})
 
 @app.get("/profile", response_class=HTMLResponse)
-async def profile_page(request: Request):
-    return templates.TemplateResponse("profile.html", {"request": request})
+async def profile_page(request: Request, db: Session = Depends(get_db)):
+    
+    user_id = request.session.get("user_id")
+    
+    if not user_id:
+        from fastapi.responses import RedirectResponse
+        return RedirectResponse(url="/login")
+    
+    user = db.query(User).filter(User.id == user_id).first()
+   
+    if not user:
+        raise HTTPException(status_code=404, detail="Пользователь не найден")
+    
+    return templates.TemplateResponse("profile.html", {
+        "request": request,
+        "user": user
+    })
 
 @app.get("/reviews", response_class=HTMLResponse)
 async def reviews_page(request: Request):
