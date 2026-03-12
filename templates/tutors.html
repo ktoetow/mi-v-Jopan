@@ -7,32 +7,245 @@
     <div class="container">
         <h1>Наши репетиторы</h1>
         <div class="filters">
-            <select><option>Все предметы</option><option>Математика</option><option>Физика</option></select>
-            <select><option>Все классы</option><option>7 класс</option><option>8 класс</option></select>
+            <div class="filter-item">
+                <label>Предмет</label>
+                <select id="subjectFilter">
+                    <option value="all">Все предметы</option>
+                    <option value="math">Математика</option>
+                    <option value="physics">Физика</option>
+                </select>
+            </div>
+            <div class="filter-item">
+                <label>Класс</label>
+                <select id="gradeFilter">
+                    <option value="all">Все классы</option>
+                    <option value="5-7">5–7 класс</option>
+                    <option value="8-9">8–9 класс</option>
+                    <option value="10-11">10–11 класс</option>
+                </select>
+            </div>
+            <div class="filter-item">
+                <label>Экзамен</label>
+                <select id="examFilter">
+                    <option value="all">Любой</option>
+                    <option value="oge">ОГЭ</option>
+                    <option value="ege">ЕГЭ</option>
+                </select>
+            </div>
         </div>
     </div>
 </section>
 
 <section class="tutors-list-section">
     <div class="container">
-        <div class="tutor-card">
-            <div class="tutor-info">
-                <h3>Анна Петрова</h3>
-                <p class="tutor-subject">Математика, 5–9 классы</p>
-                <p class="tutor-bio">Стаж 8 лет, подготовка к ОГЭ</p>
-            </div>
-            <div class="tutor-price">от 800 ₽/час</div>
-            <a href="/tutor/1" class="btn btn-outline">Подробнее</a>
+        <div id="tutorsSource" class="tutors-grid" hidden>
+            <article class="tutor-card" data-subject="math" data-grades="5-7,8-9" data-exams="oge">
+                <div class="tutor-top">
+                    <div class="tutor-avatar" aria-hidden="true">АП</div>
+                    <div class="tutor-info">
+                        <h3>Анна Петрова</h3>
+                        <div class="tutor-tags">
+                            <span class="tag">Математика</span>
+                            <span class="tag tag-muted">5–9 классы</span>
+                            <span class="tag tag-success">ОГЭ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="tutor-bio">Стаж 8 лет, подготовка к ОГЭ и повышение успеваемости.</p>
+
+                <div class="tutor-bottom">
+                    <div class="tutor-price">от <strong>800 ₽</strong><span>/час</span></div>
+                    <a href="/tutor-detail/1" class="btn btn-outline">Подробнее</a>
+                </div>
+            </article>
+
+            <article class="tutor-card" data-subject="physics" data-grades="8-9,10-11" data-exams="ege">
+                <div class="tutor-top">
+                    <div class="tutor-avatar" aria-hidden="true">ИС</div>
+                    <div class="tutor-info">
+                        <h3>Иван Сидоров</h3>
+                        <div class="tutor-tags">
+                            <span class="tag">Физика</span>
+                            <span class="tag tag-muted">7–11 классы</span>
+                            <span class="tag tag-success">ЕГЭ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="tutor-bio">Кандидат наук, опыт 10 лет. Подготовка к ЕГЭ и олимпиадам.</p>
+
+                <div class="tutor-bottom">
+                    <div class="tutor-price">от <strong>1000 ₽</strong><span>/час</span></div>
+                    <a href="/tutor-detail/2" class="btn btn-outline">Подробнее</a>
+                </div>
+            </article>
         </div>
-        <div class="tutor-card">
-            <div class="tutor-info">
-                <h3>Иван Сидоров</h3>
-                <p class="tutor-subject">Физика, 7–11 классы</p>
-                <p class="tutor-bio">Кандидат наук, опыт 10 лет</p>
-            </div>
-            <div class="tutor-price">от 1000 ₽/час</div>
-            <a href="/tutor/2" class="btn btn-outline">Подробнее</a>
-        </div>
+
+        <div id="tutorsGrouped"></div>
     </div>
 </section>
+
+<script>
+(() => {
+  const subjectFilter = document.getElementById("subjectFilter");
+  const gradeFilter = document.getElementById("gradeFilter");
+  const examFilter = document.getElementById("examFilter");
+  const source = document.getElementById("tutorsSource");
+  const target = document.getElementById("tutorsGrouped");
+
+  const subjectLabel = (key) => ({
+    math: "Математика",
+    physics: "Физика",
+  }[key] || "Другое");
+
+  const gradeLabel = (key) => ({
+    "5-7": "5–7 класс",
+    "8-9": "8–9 класс",
+    "10-11": "10–11 класс",
+  }[key] || "Другие классы");
+
+  const examLabel = (key) => ({
+    oge: "ОГЭ",
+    ege: "ЕГЭ",
+  }[key] || "Другое");
+
+  const tutors = Array.from(source.querySelectorAll(".tutor-card")).map((el) => ({
+    el,
+    subject: el.dataset.subject || "other",
+    grades: (el.dataset.grades || "").split(",").map(s => s.trim()).filter(Boolean),
+    exams: (el.dataset.exams || "").split(",").map(s => s.trim()).filter(Boolean),
+  }));
+
+  function matches(t, { subject, grade, exam }) {
+    if (subject !== "all" && t.subject !== subject) return false;
+    if (grade !== "all" && !t.grades.includes(grade)) return false;
+    if (exam !== "all" && !t.exams.includes(exam)) return false;
+    return true;
+  }
+
+  function getState() {
+    return {
+      subject: subjectFilter.value,
+      grade: gradeFilter.value,
+      exam: examFilter.value,
+    };
+  }
+
+  function setDisabledOptions(select, enabledValues) {
+    const enabled = new Set(enabledValues);
+    for (const opt of Array.from(select.options)) {
+      if (opt.value === "all") {
+        opt.disabled = false;
+        continue;
+      }
+      opt.disabled = !enabled.has(opt.value);
+    }
+  }
+
+  function updateOptionAvailability() {
+    const state = getState();
+
+    const subjectsEnabled = new Set();
+    const gradesEnabled = new Set();
+    const examsEnabled = new Set();
+
+    for (const t of tutors) {
+      if (matches(t, { ...state, subject: "all" })) subjectsEnabled.add(t.subject);
+      for (const g of t.grades) {
+        if (matches(t, { ...state, grade: "all" }) && t.grades.includes(g)) gradesEnabled.add(g);
+      }
+      for (const e of t.exams) {
+        if (matches(t, { ...state, exam: "all" }) && t.exams.includes(e)) examsEnabled.add(e);
+      }
+    }
+
+    setDisabledOptions(subjectFilter, subjectsEnabled);
+    setDisabledOptions(gradeFilter, gradesEnabled);
+    setDisabledOptions(examFilter, examsEnabled);
+
+    if (state.subject !== "all" && !subjectsEnabled.has(state.subject)) subjectFilter.value = "all";
+    if (state.grade !== "all" && !gradesEnabled.has(state.grade)) gradeFilter.value = "all";
+    if (state.exam !== "all" && !examsEnabled.has(state.exam)) examFilter.value = "all";
+  }
+
+  function render() {
+    target.innerHTML = "";
+    const state = getState();
+    const visible = tutors.filter(t => matches(t, state));
+    if (!visible.length) {
+      target.innerHTML = "<p class='empty-state'>По выбранным фильтрам ничего не найдено.</p>";
+      return;
+    }
+
+    const groups = new Map(); // subject -> grade -> exam -> [els]
+    for (const t of visible) {
+      if (!groups.has(t.subject)) groups.set(t.subject, new Map());
+      const gradeKeys = (state.grade === "all" ? t.grades : [state.grade]).filter(Boolean);
+      const examKeys = (state.exam === "all" ? t.exams : [state.exam]).filter(Boolean);
+      const gradesMap = groups.get(t.subject);
+
+      for (const g of gradeKeys.length ? gradeKeys : ["other"]) {
+        if (!gradesMap.has(g)) gradesMap.set(g, new Map());
+        const examsMap = gradesMap.get(g);
+        for (const e of examKeys.length ? examKeys : ["other"]) {
+          if (!examsMap.has(e)) examsMap.set(e, []);
+          examsMap.get(e).push(t.el);
+        }
+      }
+    }
+
+    for (const [subject, gradesMap] of groups.entries()) {
+      const subjectSection = document.createElement("section");
+      subjectSection.className = "tutor-category";
+
+      const h = document.createElement("h2");
+      h.className = "tutor-category-title";
+      h.textContent = subjectLabel(subject);
+      subjectSection.appendChild(h);
+
+      for (const [grade, examsMap] of gradesMap.entries()) {
+        const sub = document.createElement("div");
+        sub.className = "tutor-subcategory";
+
+        const h3 = document.createElement("h3");
+        h3.className = "tutor-subcategory-title";
+        h3.textContent = grade === "other" ? "Классы" : gradeLabel(grade);
+        sub.appendChild(h3);
+
+        for (const [exam, els] of examsMap.entries()) {
+          const block = document.createElement("div");
+          block.className = "tutor-subblock";
+
+          const h4 = document.createElement("div");
+          h4.className = "tutor-subblock-title";
+          h4.textContent = exam === "other" ? "Направление" : examLabel(exam);
+
+          const grid = document.createElement("div");
+          grid.className = "tutors-grid";
+          for (const el of els) grid.appendChild(el.cloneNode(true));
+
+          block.appendChild(h4);
+          block.appendChild(grid);
+          sub.appendChild(block);
+        }
+
+        subjectSection.appendChild(sub);
+      }
+
+      target.appendChild(subjectSection);
+    }
+  }
+
+  function onChange() {
+    updateOptionAvailability();
+    render();
+  }
+
+  subjectFilter.addEventListener("change", onChange);
+  gradeFilter.addEventListener("change", onChange);
+  examFilter.addEventListener("change", onChange);
+  onChange();
+})();
+</script>
 {% endblock %}

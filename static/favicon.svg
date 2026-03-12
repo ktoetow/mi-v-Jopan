@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <rect x="6" y="10" width="52" height="44" rx="10" fill="#4CAF50"/>
+  <path d="M20 22h24v6H20z" fill="#ffffff" opacity="0.95"/>
+  <path d="M20 32h18v6H20z" fill="#ffffff" opacity="0.95"/>
+  <path d="M20 42h24v6H20z" fill="#ffffff" opacity="0.95"/>
+</svg>

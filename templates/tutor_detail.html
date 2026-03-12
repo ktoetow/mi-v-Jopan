@@ -7,7 +7,17 @@
     <div class="tutor-profile">
         <div class="tutor-header">
             <h1>{{ tutor.full_name }}</h1>
-            <p class="tutor-subject">{{ tutor.subjects|join(', ') }}</p>
+            <div class="tutor-tags">
+                {% for s in tutor.subjects or [] %}
+                    <span class="tag">{{ s }}</span>
+                {% endfor %}
+                {% for g in tutor.grades or [] %}
+                    <span class="tag tag-muted">{{ g }} классы</span>
+                {% endfor %}
+                {% for e in tutor.exams or [] %}
+                    <span class="tag tag-success">{{ e }}</span>
+                {% endfor %}
+            </div>
         </div>
 
         <div class="tutor-body">
@@ -21,9 +31,9 @@
             <div class="tutor-schedule">
                 <h3>Ближайшие слоты</h3>
                 <div class="slots">
-                    <div class="slot available">26 янв, 15:00</div>
-                    <div class="slot available">26 янв, 17:00</div>
-                    <div class="slot booked">27 янв, 14:00</div>
+                    {% for slot in tutor.slots or [] %}
+                        <div class="slot {{ slot.status }}">{{ slot.label }}</div>
+                    {% endfor %}
                 </div>
                 {% if user and user.role == "student" %}
                 <button class="btn btn-primary">Записаться</button>

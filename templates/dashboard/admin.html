@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Админ‑панель — TutorBook{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Админ‑панель</h1>
+        <p class="subtitle">Управление пользователями и контентом.</p>
+    </div>
+</section>
+
+<section class="profile-section">
+    <div class="container">
+        <div class="profile-card">
+            <h2>Быстрые действия</h2>
+            <div class="auth-footer" style="margin-top: 12px;">
+                <a class="btn btn-primary" href="/profile">Профиль администратора</a>
+                <a class="btn btn-outline" href="/tutors">Перейти к репетиторам</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

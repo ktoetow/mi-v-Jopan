@@ -9,4 +9,5 @@ class User(Base):
     full_name = Column(String, index=True)
     email = Column(String, unique=True, index=True)
     password_hash = Column(String)
+    role = Column(String, default="student", index=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Вход — TutorBook{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+    <div class="container">
+        <div class="auth-card">
+            <h2>Вход</h2>
+            <p class="subtitle">Войдите, чтобы открыть личный кабинет.</p>
+
+            {% if error %}
+            <div class="alert alert-error">{{ error }}</div>
+            {% endif %}
+
+            <form method="post" action="/api/login">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" value="{{ email or '' }}" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input id="password" name="password" type="password" required />
+                </div>
+
+                <button type="submit" class="btn btn-primary full-width">Войти</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Нет аккаунта? <a href="/register">Зарегистрироваться</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

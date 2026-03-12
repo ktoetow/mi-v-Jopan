@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}TutorBook{% endblock %}</title>
     <link rel="stylesheet" href="/static/style.css" />
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -17,10 +18,11 @@
                 <a href="/">Главная</a>
                 <a href="/subjects">Предметы</a>
                 <a href="/tutors">Репетиторы</a>
+                <a href="/blog">Блог</a>
                 <a href="/pricing">Цены</a>
                 <a href="/about">О нас</a>
-                {% if request.session.get('user') %}
-                    <span class="user-greeting">Привет, {{ request.session.user.full_name }}!</span>
+                {% if request.session.get('user_id') %}
+                    <span class="user-greeting">Привет, {{ request.session.get('user_name', 'пользователь') }}!</span>
                     <a href="/dashboard" class="btn btn-outline">Кабинет</a>
                     <a href="/logout" class="btn btn-text">Выйти</a>
                 {% else %}

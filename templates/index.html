@@ -7,7 +7,7 @@
     <div class="container">
         <h1>Найдите репетитора за 2 минуты</h1>
         <p class="subtitle">Выберите класс и предмет — мы подберём идеального преподавателя.</p>
-        {% if not request.session.get('user') %}
+        {% if not request.session.get('user_id') %}
         <div class="hero-cta">
             <a href="/register" class="btn btn-primary">Начать обучение</a>
             <a href="/login" class="btn btn-outline">Уже есть аккаунт?</a>

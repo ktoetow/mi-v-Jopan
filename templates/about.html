@@ -5,27 +5,59 @@
 {% block content %}
 <section class="page-header">
     <div class="container">
-        <h1>О TutorBook</h1>
-        <p class="subtitle">Образование без границ</p>
+        <div class="page-header-grid">
+            <div>
+                <h1>О нашей платформе</h1>
+                <p class="subtitle">Образование без границ</p>
+            </div>
+            <div class="page-header-badge" aria-hidden="true">TutorBook</div>
+        </div>
     </div>
 </section>
 
 <section class="about-content">
     <div class="container">
         <div class="about-grid">
-            <div>
-                <h2>Наша миссия</h2>
-                <p>Помочь каждому ученику найти идеального репетитора и раскрыть свой потенциал.</p>
-            </div>
-            <div>
-                <h2>Почему выбирают нас?</h2>
+            <article class="info-card">
+                <div class="info-card-top">
+                    <h2>Наша миссия</h2>
+                    <span class="pill">Для учеников и родителей</span>
+                </div>
+                <p class="lead">
+                    Помочь каждому ученику найти идеального репетитора и раскрыть свой потенциал.
+                </p>
+                <div class="info-metrics" aria-label="Ключевые преимущества">
+                    <div class="metric">
+                        <div class="metric-value">1–2 минуты</div>
+                        <div class="metric-label">на подбор</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">Прозрачно</div>
+                        <div class="metric-label">цены и условия</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">Удобно</div>
+                        <div class="metric-label">онлайн и офлайн</div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="info-card info-card-accent">
+                <div class="info-card-top">
+                    <h2>Почему выбирают нас</h2>
+                    <span class="pill pill-accent">Проверено</span>
+                </div>
                 <ul class="features-list">
-                    <li>✅ Проверенные репетиторы</li>
-                    <li>✅ Гибкое расписание</li>
-                    <li>✅ Прозрачные цены</li>
-                    <li>✅ Онлайн-занятия из любого места</li>
+                    <li>Проверенные репетиторы</li>
+                    <li>Гибкое расписание</li>
+                    <li>Прозрачные цены</li>
+                    <li>Онлайн‑занятия из любого места</li>
                 </ul>
-            </div>
+                <div class="cta-row">
+                    <a href="/tutors" class="btn btn-primary">Найти репетитора</a>
+                    <a href="/how-it-works" class="btn btn-outline">Как это работает</a>
+                </div>
+            </article>
         </div>
     </div>
 </section>
