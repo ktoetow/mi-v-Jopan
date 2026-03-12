@@ -1,38 +1,153 @@
 {% extends "base.html" %}
 
-{% block title %}Контакты — TutorBook{% endblock %}
+{% block title %}Помощь и поддержка — TutorBook{% endblock %}
 
 {% block content %}
-<section class="page-header">
-    <div class="container">
-        <h1>Свяжитесь с нами</h1>
-    </div>
-</section>
-
 <section class="contact-section">
     <div class="container">
         <div class="contact-info">
-            <h2>Адрес и телефон</h2>
+            <h2>Связаться с нами</h2>
             <p>📧 support@tutorbook.ru</p>
             <p>📞 +7 (999) 123-45-67</p>
-            <p>🕒 Режим работы: пн–пт, 9:00–18:00 (МСК)</p>
+            <p>🕒 пн–пт, 9:00–18:00 (МСК)</p>
+            <p>💬 Телеграм‑бот: <a href="https://t.me/Tutor_Book_bot">@Tutor_Book_bot</a></p>
+            <p class="subtitle" style="text-align:left; margin-top:0.75rem;">
+                Обычно отвечаем в течение рабочего дня.
+            </p>
         </div>
 
         <div class="contact-form">
-            <h2>Напишите нам</h2>
+            <h2>Напишите нам, если не нашли ответ на свои вопросы</h2>
             <form>
                 <div class="form-group">
+                    <label>Имя</label>
                     <input type="text" placeholder="Ваше имя" required>
                 </div>
                 <div class="form-group">
-                    <input type="email" placeholder="Email" required>
+                    <label>Email</label>
+                    <input type="email" placeholder="Электронная почта" required>
                 </div>
                 <div class="form-group">
-                    <textarea placeholder="Сообщение" rows="4" required></textarea>
+                    <label>Сообщение</label>
+                    <textarea placeholder="Опишите ваш вопрос" rows="4" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Отправить</button>
+                <button type="submit" class="btn btn-primary full-width">Отправить сообщение</button>
             </form>
         </div>
     </div>
 </section>
+
+<section class="blog-section">
+    <div class="container">
+        <h2 style="margin-bottom:1rem;">Частые вопросы</h2>
+
+        <article class="blog-post is-open">
+            <button class="blog-question" type="button">
+                Как записаться к репетитору?
+            </button>
+            <div class="blog-answer">
+                <p>
+                    Выберите подходящего преподавателя на главной странице, нажмите «Записаться»
+                    и заполните короткую форму. Мы подтвердим запись в личном кабинете и по email.
+                </p>
+            </div>
+        </article>
+
+        <article class="blog-post">
+            <button class="blog-question" type="button">
+                Можно ли отменить или перенести занятие?
+            </button>
+            <div class="blog-answer">
+                <p>
+                    Да, занятие можно отменить или перенести в личном кабинете не позднее чем за 8 часов
+                    до начала. В противном случае оно считается проведённым.
+                </p>
+            </div>
+        </article>
+
+        <article class="blog-post">
+            <button class="blog-question" type="button">
+                Как происходит оплата занятий?
+            </button>
+            <div class="blog-answer">
+                <p>
+                    Оплата происходит онлайн банковской картой в личном кабинете. Деньги резервируются
+                    и списываются только после проведения занятия.
+                </p>
+            </div>
+        </article>
+    </div>
+</section>
+
+{% if not request.session.get('user_id') %}
+<section class="tutor-cta">
+    <div class="container">
+        <div class="info-card info-card-accent">
+            <div class="info-card-top">
+                <h2>Хотите стать репетитором на TutorBook?</h2>
+                <span class="pill pill-accent">Для новых преподавателей</span>
+            </div>
+            <p class="lead">
+                Оставьте короткую заявку — мы свяжемся с вами, уточним предметы и уровень учеников и поможем оформить профиль.
+            </p>
+            <form id="tutorApplicationForm" class="tutor-application-form">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Ваше имя" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" name="phone" placeholder="Телефон" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="cta-row">
+                    <button type="submit" class="btn btn-primary">Оставить заявку</button>
+                    <a href="/for-tutors" class="btn btn-outline">Подробнее о работе с нами</a>
+                </div>
+                <p id="tutorApplicationSuccess" class="subtitle tutor-application-success" style="display:none;">
+                    Заявка отправлена. Мы свяжемся с вами в ближайшее время.
+                </p>
+            </form>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<script>
+(function () {
+  const form = document.getElementById("tutorApplicationForm");
+  const success = document.getElementById("tutorApplicationSuccess");
+  if (form && success) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      console.log("Tutor application:", {
+        name: data.get("name"),
+        phone: data.get("phone"),
+        email: data.get("email"),
+      });
+      form.reset();
+      success.style.display = "block";
+    });
+  }
+})();
+
+(function () {
+  const posts = document.querySelectorAll(".blog-post");
+  posts.forEach(function (post) {
+    const btn = post.querySelector(".blog-question");
+    const answer = post.querySelector(".blog-answer");
+    if (!btn || !answer) return;
+
+    if (post.classList.contains("is-open")) {
+      answer.style.maxHeight = answer.scrollHeight + "px";
+    }
+
+    btn.addEventListener("click", function () {
+      const isOpen = post.classList.toggle("is-open");
+      answer.style.maxHeight = isOpen ? answer.scrollHeight + "px" : "0px";
+    });
+  });
+})();
+</script>
 {% endblock %}

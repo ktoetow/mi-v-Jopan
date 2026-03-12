@@ -230,10 +230,6 @@ async def dashboard_page(request: Request, db: Session = Depends(get_db)):
 async def about_page(request: Request):
     return templates.TemplateResponse("about.html", {"request": request})
 
-@app.get("/blog", response_class=HTMLResponse)
-async def blog_page(request: Request):
-    return templates.TemplateResponse("blog.html", {"request": request})
-
 @app.get("/contact", response_class=HTMLResponse)
 async def contact_page(request: Request):
     return templates.TemplateResponse("contact.html", {"request": request})
@@ -331,10 +327,6 @@ async def update_profile(
 @app.get("/api/profile/update")
 async def update_profile_get():
     return RedirectResponse(url="/profile", status_code=303)
-
-@app.get("/reviews", response_class=HTMLResponse)
-async def reviews_page(request: Request):
-    return templates.TemplateResponse("reviews.html", {"request": request})
 
 @app.get("/subjects", response_class=HTMLResponse)
 async def subjects_page(request: Request):

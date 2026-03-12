@@ -1,23 +1,86 @@
 {% extends "base.html" %}
 
-{% block title %}Поддержка — TutorBook{% endblock %}
+{% block title %}Помощь и поддержка — TutorBook{% endblock %}
 
 {% block content %}
-<section class="page-header">
+<section class="blog-section">
     <div class="container">
-        <h1>Помощь и поддержка</h1>
+        <div class="about-grid">
+            <div class="info-card">
+                <h2>Частые вопросы</h2>
+
+                <article class="blog-post is-open">
+                    <button class="blog-question" type="button">
+                        Как записаться к репетитору?
+                    </button>
+                    <div class="blog-answer">
+                        <p>
+                            Выберите предмет и класс, посмотрите доступных репетиторов, затем нажмите «Записаться»
+                            и выберите удобное время. Подтверждённые занятия появятся в вашем личном кабинете.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="blog-post">
+                    <button class="blog-question" type="button">
+                        Можно ли отменить запись?
+                    </button>
+                    <div class="blog-answer">
+                        <p>
+                            Отменить или перенести занятие можно в личном кабинете не позднее, чем за 8 часов
+                            до начала. Так мы успеем уведомить преподавателя и освободить слот.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="blog-post">
+                    <button class="blog-question" type="button">
+                        Как оплачивать занятия?
+                    </button>
+                    <div class="blog-answer">
+                        <p>
+                            Оплата происходит онлайн банковской картой в личном кабинете. Средства списываются
+                            только после того, как занятие прошло.
+                        </p>
+                    </div>
+                </article>
+            </div>
+
+            <div class="info-card info-card-accent">
+                <div class="info-card-top">
+                    <h2>Связаться с нами</h2>
+                    <span class="pill pill-accent">Отвечаем в будни</span>
+                </div>
+                <p class="lead">
+                    Если не нашли ответ на свой вопрос в FAQ — напишите нам любым удобным способом.
+                </p>
+                <ul class="features-list" style="margin-top:0.9rem;">
+                    <li>Email: <a href="mailto:support@tutorbook.ru">support@tutorbook.ru</a></li>
+                    <li>Телефон: +7 (999) 123‑45‑67</li>
+                    <li>Чат поддержки: доступен в личном кабинете</li>
+                </ul>
+            </div>
+        </div>
     </div>
 </section>
 
-<div class="container support-page">
-    <h2>Частые вопросы</h2>
-    <details><summary>Как записаться к репетитору?</summary><p>Выберите предмет → репетитора → свободное время → подтвердите запись.</p></details>
-    <details><summary>Можно ли отменить запись?</summary><p>Да, до начала занятия за 24 часа.</p></details>
-    <details><summary>Как оплачивать занятия?</summary><p>Оплата производится после подтверждения записи репетитором.</p></details>
+<script>
+(function () {
+  const posts = document.querySelectorAll(".blog-post");
+  posts.forEach(function (post) {
+    const btn = post.querySelector(".blog-question");
+    const answer = post.querySelector(".blog-answer");
+    if (!btn || !answer) return;
 
-    <h2>Связаться с нами</h2>
-    <p>Email: support@tutorbook.ru</p>
-    <p>Телефон: +7 (999) 123-45-67</p>
-    <p>Чат: доступен в личном кабинете</p>
-</div>
+    if (post.classList.contains("is-open")) {
+      answer.style.maxHeight = answer.scrollHeight + "px";
+    }
+
+    btn.addEventListener("click", function () {
+      const isOpen = post.classList.toggle("is-open");
+      answer.style.maxHeight = isOpen ? answer.scrollHeight + "px" : "0px";
+    });
+  });
+})();
+</script>
 {% endblock %}

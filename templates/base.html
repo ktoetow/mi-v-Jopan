@@ -15,20 +15,24 @@
                 <span>TutorBook</span>
             </div>
             <nav class="nav-links">
+                {% if request.session.get('user_id') %}
+                    <span class="user-greeting">Привет, {{ request.session.get('user_name', 'пользователь') }}!</span>
+                {% endif %}
                 <a href="/">Главная</a>
                 <a href="/subjects">Предметы</a>
                 <a href="/tutors">Репетиторы</a>
-                <a href="/blog">Блог</a>
                 <a href="/pricing">Цены</a>
                 <a href="/about">О нас</a>
-                {% if request.session.get('user_id') %}
-                    <span class="user-greeting">Привет, {{ request.session.get('user_name', 'пользователь') }}!</span>
-                    <a href="/dashboard" class="btn btn-outline">Кабинет</a>
-                    <a href="/logout" class="btn btn-text">Выйти</a>
-                {% else %}
-                    <a href="/login" class="btn btn-text">Войти</a>
-                    <a href="/register" class="btn btn-primary">Регистрация</a>
-                {% endif %}
+                <a href="/contact">Поддержка</a>
+                <div class="nav-user">
+                    {% if request.session.get('user_id') %}
+                        <a href="/dashboard" class="btn btn-outline btn-small">Кабинет</a>
+                        <a href="/logout" class="btn btn-text btn-small">Выйти</a>
+                    {% else %}
+                        <a href="/login" class="btn btn-text btn-small">Войти</a>
+                        <a href="/register" class="btn btn-primary btn-small">Регистрация</a>
+                    {% endif %}
+                </div>
             </nav>
         </div>
     </header>
@@ -40,7 +44,6 @@
     <footer class="site-footer">
         <div class="container">
             <p>&copy; 2026 TutorBook. Платформа для записи к репетиторам.</p>
-            <p><a href="/support">Поддержка</a> • <a href="/profile">Профиль</a></p>
         </div>
     </footer>
 </body>
